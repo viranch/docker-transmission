@@ -27,7 +27,7 @@ COPY assets/scripts/ /opt/scripts/
 
 # Finally declare public things
 VOLUME /data
-EXPOSE 80
+EXPOSE 9091
 
 # Define how to run the image
 ENTRYPOINT ["/opt/scripts/start.sh"]
