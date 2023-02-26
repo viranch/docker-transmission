@@ -1,5 +1,5 @@
 # docker-transmission
-My docker image for a slightly customized Transmission
+My docker image for a slightly customized Transmission that includes https://github.com/transmission/transmission/pull/1080 but replaces the v3.00 web interface with v2.94's web interface for compatibility with its JS API used in [viranch/docker-tordash](https://github.com/viranch/docker-tordash).
 
 ### How to use?
 
