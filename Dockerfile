@@ -25,9 +25,10 @@ COPY assets/config/transmission.json /opt/
 COPY assets/scripts/ /opt/scripts/
 
 # Finally declare public things
-VOLUME /data
+VOLUME /config
+VOLUME /data/downloads
 EXPOSE 9091
 
 # Define how to run the image
 ENTRYPOINT ["/opt/scripts/start.sh"]
-CMD ["/usr/local/bin/transmission-daemon", "-f", "--config-dir", "/data/transmission"]
+CMD ["/usr/local/bin/transmission-daemon", "-f", "--config-dir", "/config"]
