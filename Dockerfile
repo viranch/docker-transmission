@@ -11,7 +11,7 @@ RUN apt-get update && \
     cp -R /tmp/transmission /tmp/transmission2 && \
     cd /tmp/transmission && git checkout tags/4.0.5 && git submodule update --init --recursive && \
     git -C /tmp/transmission2 checkout tags/2.94 && rm -rf web/* && cp -R /tmp/transmission2/web web/public_html && \
-    cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_WEB=OFF -DENABLE_TESTS=OFF -DINSTALL_DOC=OFF -DENABLE_UTILS=OFF && \
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WEB=OFF -DENABLE_TESTS=OFF -DINSTALL_DOC=OFF -DENABLE_UTILS=OFF && \
     cd build && cmake --build . && cmake --install . && \
     apt-get remove -y --purge git cmake make g++ libcurl4-openssl-dev libssl-dev zlib1g-dev autotools-dev automake libtool python3 && \
     apt-get autoremove -y && \
