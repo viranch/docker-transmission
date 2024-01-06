@@ -6,16 +6,14 @@ ARG DEBIAN_FRONTEND=noninteractive
 # but replace its v4.00 web interface with v2.94's web interface for JS API compatibility
 # Also install other runtime dependencies of this docker image while we're apt-get'in stuff
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git cmake make g++ ca-certificates libcurl4-openssl-dev libssl-dev zlib1g-dev autotools-dev automake libtool python3 && \
-    git clone https://github.com/transmission/transmission /tmp/transmission && \
-    cp -R /tmp/transmission /tmp/transmission2 && \
-    cd /tmp/transmission && git checkout tags/4.0.5 && git submodule update --init --recursive && \
-    git -C /tmp/transmission2 checkout tags/2.94 && rm -rf web/* && cp -R /tmp/transmission2/web web/public_html && \
-    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WEB=OFF -DENABLE_TESTS=OFF -DINSTALL_DOC=OFF -DENABLE_UTILS=OFF && \
+    apt-get install -y --no-install-recommends ca-certificates curl xz-utils cmake make g++ libcurl4-openssl-dev libssl-dev python3 && \
+    curl -L https://github.com/transmission/transmission/releases/download/4.0.5/transmission-4.0.5.tar.xz | tar xJ -C /tmp && \
+    curl -L https://github.com/transmission/transmission/archive/refs/tags/2.94.tar.gz | tar xz -C /tmp && \
+    cd /tmp/transmission-4.0.5 && rm -rf web && mkdir web && cp -R /tmp/transmission-2.94/web web/public_html && \
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=OFF -DINSTALL_DOC=OFF -DENABLE_UTILS=OFF && \
     cd build && cmake --build . && cmake --install . && \
-    apt-get remove -y --purge git cmake make g++ libcurl4-openssl-dev libssl-dev zlib1g-dev autotools-dev automake libtool python3 && \
+    apt-get remove -y --purge xz-utils cmake make g++ libcurl4-openssl-dev libssl-dev python3 && \
     apt-get autoremove -y && \
-    apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 # Setup transmission
