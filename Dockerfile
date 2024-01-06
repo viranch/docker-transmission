@@ -24,7 +24,7 @@ COPY assets/scripts/ /opt/scripts/
 
 # Finally declare public things
 VOLUME /config
-VOLUME /data/downloads
+VOLUME /data
 EXPOSE 9091
 
 # Define how to run the image
